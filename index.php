@@ -3,6 +3,8 @@
 require_once "products.php";
 require_once "functions.php";
 
+$totalSeluruhStok = 0;
+
 ?>
 
 <!DOCTYPE html>
@@ -78,6 +80,15 @@ require_once "functions.php";
             font-weight: bold;
         }
 
+        .total-seluruh {
+            background-color: #eeeeee;
+            font-weight: bold;
+        }
+
+        .total-seluruh td {
+            border-top: 2px solid #333;
+        }
+
         .footer {
             text-align: center;
             margin-top: 25px;
@@ -120,16 +131,24 @@ require_once "functions.php";
                     $product["stok"]
                 );
 
+                $totalSeluruhStok += $totalNilaiStok;
+
                 $classStok = $product["stok"] < 3 ? "stok-rendah" : "";
                 ?>
 
                 <tr class="<?= $classStok ?>">
 
-                    <td><?= $product["id"] ?></td>
+                    <td>
+                        <?= $product["id"] ?>
+                    </td>
 
-                    <td><?= $product["nama"] ?></td>
+                    <td>
+                        <?= $product["nama"] ?>
+                    </td>
 
-                    <td><?= $product["kategori"] ?></td>
+                    <td>
+                        <?= $product["kategori"] ?>
+                    </td>
 
                     <td class="harga">
                         Rp <?= number_format($product["harga"], 0, ',', '.') ?>
@@ -150,6 +169,18 @@ require_once "functions.php";
                 </tr>
 
             <?php endforeach; ?>
+
+            <tr class="total-seluruh">
+
+                <td colspan="6" style="text-align: right;">
+                    Total Nilai Seluruh Stok
+                </td>
+
+                <td class="total">
+                    Rp <?= number_format($totalSeluruhStok, 0, ',', '.') ?>
+                </td>
+
+            </tr>
 
         </tbody>
     </table>
